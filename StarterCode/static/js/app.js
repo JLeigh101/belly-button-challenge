@@ -1,42 +1,59 @@
 // store source URL
 const url = 'https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json';
 
-//var dataset;
-
 // fetch the JSON data and log it
 d3.json(url).then(function(data){
 //    dataset = data;
     console.log(data);
 
-let sample_id = 940;
-let results = data.samples.filter(id => id.id == sample_id);
-let result = results[0];
-console.log(result);
-let sample_values = result.sample_values.slice(0,10);
-let otu_ids = result.otu_ids.slice(0,10);
-let otu_labels = result.otu_labels.slice(0,10);
+//let sample_id = 940;
 
-let names = Object.values(data.names);
-//console.log(data.samples);
-//console.log(names);
+let sample_ids = Object.values(data.names);
+console.log(sample_ids);
+//need to iterate through sample_ids in the dropdown menu
+//let results = data.samples.filter(id => id.id == sample_ids);
+results = [];
+for (let i = 0; i < sample_ids.length; i++){
+    let id = sample_ids[i];
+}
+console.log(results);
 
-//function selectID();
-//let otu_ids = Object.values(data[0][samples][otu_ids]);
+
+let sample_values = results.sample_values.slice(0,10);
+let otu_ids = results.otu_ids.slice(0,10);
+let otu_labels = results.otu_labels.slice(0,10);
+
 
 //Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs 
 //found in that (per) individual.
 ///
+function init(){
+    
+    let trace = {
+        x: sample_values.reverse(),
+        y: otu_ids.map(item => `OTU ${item}`).reverse(),
+        text: otu_labels.reverse(),
+        type: 'bar',
+        orientation: 'h'
+    };
 
-let trace = {
-    x: sample_values.reverse(),
-    y: otu_ids.map(item => `Otu ${item}`).reverse(),
-    text: otu_labels.reverse(),
-    type: 'bar',
-    orientation: 'h'
+    let traces = [trace];
+
+    let layout = {title: "Top Ten OTUs"};
+    Plotly.newPlot("bar", traces, layout);
 };
 
-let traces = [trace];
+//create the dropdown list for all sample id's in the dataset by appending each ID as a new value
+let dropdown = d3.select("#selDataset");
+for (id of sample_ids){
+    dropdown.append("option").attr("value", id).text(id);
+};
 
-let layout = {title: "top ten OTUs"};
-Plotly.newPlot("bar", traces, layout);
+//define the function when the dropdown detects a change
+dropdown.on("change", function(){
+    let labels = otu_labels;
 });
+
+init();
+
+}); // end of d3.json function

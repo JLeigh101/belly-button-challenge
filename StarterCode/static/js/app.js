@@ -96,10 +96,20 @@ function makeBubble(sample){
             xaxis: {title: 'OTU ID'},
             yaxis: {title: 'Number of Bacteria'}
         };
-        Plotly.newPlot("bubble", [bubble_trace], layout); //bubble is the html tag in index.html
+        Plotly.newPlot("bubble", [bubble_trace], layout); //'bubble' is the html tag in index.html
     });
 };
 
+//create the demographic info function to populate each sample's info
+function makeDemographics(sample){
+    //access the sample data for populating the demographics section
+    d3.json(url).then((data) => {
+    //access the demographic info (metadata) with d3
+    let demographic_info = data.metadata;
+    console.log(demographic_info);
+
+    });
+};
 
 // //define the function when the dropdown detects a change (function name as defined in index.html)
 function optionChanged(value){
@@ -107,6 +117,7 @@ function optionChanged(value){
     console.log(value);
     makeBar(value);
     makeBubble(value);
+    makeDemographics(value);
 };
 
 init();

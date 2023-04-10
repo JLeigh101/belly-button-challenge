@@ -6,8 +6,6 @@ d3.json(url).then(function(data){
     console.log(data);
 }); 
 
-//let results = data.samples.filter(id => id.id == sample_ids);
-
 //create init function that will manage dropdown, bar chart, and bubble chart
 function init(){
     //create the dropdown list for all sample id's in the dataset by appending each ID as a new value
@@ -71,10 +69,12 @@ function makeBar(sample){
 
 
 
-// //define the function when the dropdown detects a change
-// dropdown.on("change", function(){
-//     let labels = otu_labels;
-// });
+// //define the function when the dropdown detects a change (function name as defined in index.html)
+function optionChanged(value){
+    //log the value for debug
+    console.log(value);
+    makeBar(value);
+};
 
 init();
 

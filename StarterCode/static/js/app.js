@@ -112,7 +112,9 @@ function makeDemographics(sample){
     let first_result = results[0];
     console.log(first_result);
     //select the demographic info html section with d3
-    d3.select("#sample-metadata");
+    Object.entries(first_result).forEach(([key,value]) => {
+        console.log(key,value);
+    });
 
     });
 };

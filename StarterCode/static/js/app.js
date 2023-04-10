@@ -48,6 +48,18 @@ function makeBar(sample){
         console.log(sample_values);
         console.log(otu_ids);
         console.log(otu_labels);
+
+        //create the trace for bar chart
+        let bar_trace = {
+            x: sample_values.reverse(),
+            y: otu_ids.map(item => `OTU ${item}`).reverse(),
+            text: otu_labels.reverse(),
+            type: 'bar',
+            orientation: 'h'
+        };
+
+        let layout = {title: "Top Ten OTUs"};
+        Plotly.newPlot("bar", [bar_trace], layout);
     });
 };
 
@@ -57,18 +69,7 @@ function makeBar(sample){
 
 
 
-// let trace = {
-//     x: sample_values.reverse(),
-//     y: otu_ids.map(item => `OTU ${item}`).reverse(),
-//     text: otu_labels.reverse(),
-//     type: 'bar',
-//     orientation: 'h'
-// };
 
-// let traces = [trace];
-
-// let layout = {title: "Top Ten OTUs"};
-// Plotly.newPlot("bar", traces, layout);
 
 // //define the function when the dropdown detects a change
 // dropdown.on("change", function(){

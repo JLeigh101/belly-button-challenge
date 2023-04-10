@@ -22,8 +22,9 @@ function init(){
     let first_entry = sample_ids[0];
     console.log(first_entry);
     
-    //have the init() function call the graph generating functions
+    //have the init() function call the graph generating functions with the first entry (id 940)
     makeBar(first_entry);
+    makeBubble(first_entry);
 
     }); //end of d3 access
 };
@@ -61,12 +62,39 @@ function makeBar(sample){
     });
 };
 
+function makeBubble(sample){
+    //access the sample data for populating the bubble chart
+    d3.json(url).then((data) => {
+        let sample_data = data.samples;
+        //apply a filter that matches based on sample id
+        let results = sample_data.filter(id => id.id == sample);
+        //access and store the first entry in results filter
+        let first_result = results[0];
+        console.log(first_result);
+        //store the first 10 results to display in the bar chart
+        let sample_values = first_result.sample_values;
+        let otu_ids = first_result.otu_ids;
+        let otu_labels = first_result.otu_labels;
+        console.log(sample_values);
+        console.log(otu_ids);
+        console.log(otu_labels);
 
+        //create the trace for bubble chart
+        let bubble_trace = {
+            x: sample_values.reverse(),
+            y: otu_ids.map(item => `OTU ${item}`).reverse(),
+            text: otu_labels.reverse(),
+            mode: 'markers',
+            marker: {
+                size: sample_values,
+                color: otu_ids,
+            }
+        };
 
-
-
-
-
+        let layout = {title: "Bacteria Count in Sample"};
+        Plotly.newPlot("bubble", [bubble_trace], layout); //bubble is the html tag in index.html
+    });
+};
 
 
 // //define the function when the dropdown detects a change (function name as defined in index.html)

@@ -34,3 +34,7 @@ Complete the following steps:
 -Display each key-value pair from the metadata JSON object somewhere on the page.
 
 Update all the plots when a new sample is selected. Additionally, you are welcome to create any layout that you would like for your dashboard.
+
+**References and Acknowledgements**
+--Tutor Asiha Braxton-Garvin helped me to get started and helped to structure the filter function needed to filter each sample id.
+--StackOverflow had useful examples for d3.select and html clearing.

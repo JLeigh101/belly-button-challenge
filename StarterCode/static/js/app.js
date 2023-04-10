@@ -41,15 +41,20 @@ function makeBar(sample){
         //access and store the first entry in results filter
         let first_result = results[0];
         console.log(first_result);
+        //store the first 10 results to display in the bar chart
+        let sample_values = first_result.sample_values.slice(0,10);
+        let otu_ids = first_result.otu_ids.slice(0,10);
+        let otu_labels = first_result.otu_labels.slice(0,10);
+        console.log(sample_values);
+        console.log(otu_ids);
+        console.log(otu_labels);
     });
 };
 
 
 
 
-//let sample_values = results.sample_values.slice(0,10);
-//let otu_ids = results.otu_ids.slice(0,10);
-//let otu_labels = results.otu_labels.slice(0,10);
+
 
 
 // let trace = {

@@ -81,8 +81,8 @@ function makeBubble(sample){
 
         //create the trace for bubble chart
         let bubble_trace = {
-            x: sample_values.reverse(),
-            y: otu_ids.map(item => `OTU ${item}`).reverse(),
+            x: otu_ids.reverse(),
+            y: sample_values.reverse(),
             text: otu_labels.reverse(),
             mode: 'markers',
             marker: {
@@ -91,7 +91,11 @@ function makeBubble(sample){
             }
         };
 
-        let layout = {title: "Bacteria Count in Sample"};
+        let layout = {
+            title: "Bacteria Count for each Sample ID",
+            xaxis: {title: 'OTU ID'},
+            yaxis: {title: 'Number of Bacteria'}
+        };
         Plotly.newPlot("bubble", [bubble_trace], layout); //bubble is the html tag in index.html
     });
 };
@@ -102,6 +106,7 @@ function optionChanged(value){
     //log the value for debug
     console.log(value);
     makeBar(value);
+    makeBubble(value);
 };
 
 init();

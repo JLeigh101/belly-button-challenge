@@ -111,9 +111,11 @@ function makeDemographics(sample){
     //store the first result to display in demographic info
     let first_result = results[0];
     console.log(first_result);
-    //select the demographic info html section with d3
+    
     Object.entries(first_result).forEach(([key,value]) => {
         console.log(key,value);
+        //select the demographic info html section with d3 and append new key-value pair
+        d3.select('#sample-metadata').append('h3').text(`${key}, ${value}`);
     });
 
     });

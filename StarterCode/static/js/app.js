@@ -12,7 +12,7 @@ function init(){
     let dropdown = d3.select("#selDataset");
     //access sample data using d3
     d3.json(url).then((data) => {
-    //gather the sample ids from the names list in data
+    //gather the sample ids from the names list in data and populate the dropdown
     let sample_ids = data.names;
     console.log(sample_ids);
         for (id of sample_ids){
@@ -25,7 +25,7 @@ function init(){
     //have the init() function call the graph generating functions with the first entry (id 940)
     makeBar(first_entry);
     makeBubble(first_entry);
-
+    makeDemographics(first_entry);
     }); //end of d3 access
 };
 
@@ -71,7 +71,7 @@ function makeBubble(sample){
         //access and store the first entry in results filter
         let first_result = results[0];
         console.log(first_result);
-        //store the first 10 results to display in the bar chart
+        //store the results to display in the bubble chart
         let sample_values = first_result.sample_values;
         let otu_ids = first_result.otu_ids;
         let otu_labels = first_result.otu_labels;
@@ -106,7 +106,13 @@ function makeDemographics(sample){
     d3.json(url).then((data) => {
     //access the demographic info (metadata) with d3
     let demographic_info = data.metadata;
-    console.log(demographic_info);
+     //apply a filter that matches based on sample id
+    let results = demographic_info.filter(id => id.id == sample);
+    //store the first result to display in demographic info
+    let first_result = results[0];
+    console.log(first_result);
+    //select the demographic info html section with d3
+    d3.select("#sample-metadata");
 
     });
 };

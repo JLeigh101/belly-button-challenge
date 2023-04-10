@@ -6,9 +6,9 @@ d3.json(url).then(function(data){
     console.log(data);
 }); 
 
-//create init function that will manage dropdown, bar chart, and bubble chart
+//create init function that will populate the dropdown, bar chart, and bubble chart with each sample's dataset
 function init(){
-    //create the dropdown list for all sample id's in the dataset by appending each ID as a new value
+    //create the dropdown list variable for all sample id's in the dataset by appending each ID as a new value
     let dropdown = d3.select("#selDataset");
     //access sample data using d3
     d3.json(url).then((data) => {
@@ -111,13 +111,15 @@ function makeDemographics(sample){
     //store the first result to display in demographic info
     let first_result = results[0];
     console.log(first_result);
-    
+    //this is used to clear out previous entries in the demographic info section by setting the text to a blank string
+    d3.select('#sample-metadata').text('');
+
     Object.entries(first_result).forEach(([key,value]) => {
         console.log(key,value);
         //select the demographic info html section with d3 and append new key-value pair
         d3.select('#sample-metadata').append('h3').text(`${key}, ${value}`);
     });
-
+    
     });
 };
 

@@ -6,20 +6,7 @@ d3.json(url).then(function(data){
     console.log(data);
 }); 
 
-
-//let sample_id = 940;
-
-//need to iterate through sample_ids in the dropdown menu
 //let results = data.samples.filter(id => id.id == sample_ids);
-let ids = [];
-let labels = [];
-let values = [];
-for (let i = 0; i < sample_ids.length; i++){
-    let id = sample_ids[i];
-    results.push()
-}
-console.log(results);
-
 
 //create init function that will manage dropdown, bar chart, and bubble chart
 function init(){
@@ -35,31 +22,53 @@ function init(){
         };
     //store the first sample for display initialization
     let first_entry = sample_ids[0];
+    console.log(first_entry);
+    
+    //have the init() function call the graph generating functions
+    makeBar(first_entry);
+
     }); //end of d3 access
 };
 
-let sample_values = results.sample_values.slice(0,10);
-let otu_ids = results.otu_ids.slice(0,10);
-let otu_labels = results.otu_labels.slice(0,10);
+//create a function to populate the horizontal bar chart graph
+function makeBar(sample){
 
-
-let trace = {
-    x: sample_values.reverse(),
-    y: otu_ids.map(item => `OTU ${item}`).reverse(),
-    text: otu_labels.reverse(),
-    type: 'bar',
-    orientation: 'h'
+    //access the sample data for populating the bar chart
+    d3.json(url).then((data) => {
+        let sample_data = data.samples;
+        //apply a filter that matches based on sample id
+        let results = sample_data.filter(id => id.id == sample);
+        //access and store the first entry in results filter
+        let first_result = results[0];
+        console.log(first_result);
+    });
 };
 
-let traces = [trace];
 
-let layout = {title: "Top Ten OTUs"};
-Plotly.newPlot("bar", traces, layout);
 
-//define the function when the dropdown detects a change
-dropdown.on("change", function(){
-    let labels = otu_labels;
-});
+
+//let sample_values = results.sample_values.slice(0,10);
+//let otu_ids = results.otu_ids.slice(0,10);
+//let otu_labels = results.otu_labels.slice(0,10);
+
+
+// let trace = {
+//     x: sample_values.reverse(),
+//     y: otu_ids.map(item => `OTU ${item}`).reverse(),
+//     text: otu_labels.reverse(),
+//     type: 'bar',
+//     orientation: 'h'
+// };
+
+// let traces = [trace];
+
+// let layout = {title: "Top Ten OTUs"};
+// Plotly.newPlot("bar", traces, layout);
+
+// //define the function when the dropdown detects a change
+// dropdown.on("change", function(){
+//     let labels = otu_labels;
+// });
 
 init();
 
